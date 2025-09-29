@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Sahayak</title>
+    <link rel="stylesheet" href="in.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    
+</head>
+<body>
+    <header>
+        <h1>Civic Sahayak</h1>
+        <nav>
+            <ul>
+                <li><a href="#" id="show-home">Home</a></li>
+                <li><a href="#complaints">Raise Complaint</a></li>
+                <li><a href="#events">Upcoming Events</a></li>
+                <li><a href="#track">Track Application</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="info">
+            <h2>Welcome to Civic Sahayak</h2>
+            <p>
+                Civic Sahayak is your one-stop platform for raising civic complaints, staying updated on local events, and tracking your applications with ease. We empower citizens to connect with municipal services and contribute to a cleaner, safer, and better community.
+            </p>
+            <h3 style="color:#1565c0; font-size:1.35rem; margin-top:32px; margin-bottom:12px; font-weight:700; letter-spacing:1px;">Services we provide</h3>
+            <ul class="info-list">
+                <li><strong>Raise Complaints:</strong> Report issues related to garbage, water, electricity, and more directly to your local authorities.</li>
+                <li><strong>Upcoming Events:</strong> Stay informed about community drives, workshops, and seminars happening in your area.</li>
+                <li><strong>Track Applications:</strong> Easily check the status of your submitted complaints and service requests.</li>
+                <li><strong>Fast & Transparent:</strong> Get timely updates and responses from municipal departments.</li>
+                <li><strong>Community Impact:</strong> Your feedback helps us build a better city for everyone.</li>
+                <li><strong>Secure & Private:</strong> Your data is protected and only used for civic purposes.</li>
+            </ul>
+            <div class="main-options">
+                <button id="show-complaints" class="option-btn">Raise Complaint</button>
+                <button id="show-events" class="option-btn">Upcoming Events</button>
+                <button id="show-track" class="option-btn">Track Application</button>
+            </div>
+            <hr style="margin:32px 0; border:0; border-top:2px solid #e3f2fd;">
+            <h2>Feedback</h2>
+            <form>
+                <label for="feedback-text-inline">Your Feedback:</label>
+                <textarea id="feedback-text-inline" name="feedback-text-inline" rows="4" cols="50" placeholder="Share your thoughts, suggestions, or issues..."></textarea>
+                <br><br>
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </section>
+
+        <section id="complaints" style="display:none;">
+            <h2>📝 Raise a Complaint</h2>
+            <form class="complaint-form" id="complaintForm">
+                <div class="form-group">
+                    <label for="complaint-type">📋 Complaint Type:</label>
+                    <select id="complaint-type" name="complaint-type" required>
+                        <option value="">Select an issue type</option>
+                        <option value="garbage">🗑️ Garbage Collection</option>
+                        <option value="water">💧 Water Supply</option>
+                        <option value="electricity">💡 Electricity</option>
+                        <option value="police">👮 Police Complaint</option>
+                        <option value="fire">🔥 Fire Hazard</option>
+                        <option value="roads">🛣️ Road & Infrastructure</option>
+                        <option value="sanitation">🧹 Sanitation & Hygiene</option>
+                        <option value="drainage">🌊 Drainage Issues</option>
+                        <option value="street-lights">💡 Street Light Outage</option>
+                        <option value="other">❓ Other Issues</option>
+                    </select>
+                </div>
+
+                <!-- Police Complaint Subcategories -->
+                <div id="policeSubcategories" class="form-group" style="display: none;">
+                    <label>🚨 Type of Police Complaint:</label>
+                    <div class="police-options">
+                        <div class="police-option">
+                            <input type="radio" id="robbery" name="police_type" value="robbery" class="police-radio">
+                            <label for="robbery">
+                                <div class="police-icon">
+                                    <i class="fas fa-mask"></i>
+                                </div>
+                                <span>Robbery / Theft</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="harassment" name="police_type" value="harassment" class="police-radio">
+                            <label for="harassment">
+                                <div class="police-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <span>Harassment</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="assault" name="police_type" value="assault" class="police-radio">
+                            <label for="assault">
+                                <div class="police-icon">
+                                    <i class="fas fa-user-injured"></i>
+                                </div>
+                                <span>Assault / Violence</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="fraud" name="police_type" value="fraud" class="police-radio">
+                            <label for="fraud">
+                                <div class="police-icon">
+                                    <i class="fas fa-hand-holding-usd"></i>
+                                </div>
+                                <span>Fraud / Scam</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="missing" name="police_type" value="missing" class="police-radio">
+                            <label for="missing">
+                                <div class="police-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <span>Missing Person</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="cyber" name="police_type" value="cyber" class="police-radio">
+                            <label for="cyber">
+                                <div class="police-icon">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <span>Cyber Crime</span>
+                            </label>
+                        </div>
+                        <div class="police-option">
+                            <input type="radio" id="other_police" name="police_type" value="other" class="police-radio">
+                            <label for="other_police">
+                                <div class="police-icon">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </div>
+                                <span>Other Issue</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">📍 Location:</label>
+                    <div class="location-input-container">
+                        <input type="text" id="location" name="location" required>
+                        <button type="button" id="get-location" class="location-btn" title="Use current location">
+                            <i class="fas fa-crosshairs"></i>
+                        </button>
+                    </div>
+                    <div id="location-status" class="location-status"></div>
+                    
+                    <!-- Map Container -->
+                    <div class="map-container" id="location-map-container" style="display: none; margin-top: 15px; height: 250px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd;">
+                        <div id="location-map" style="height: 100%; width: 100%;"></div>
+                    </div>
+                    <button type="button" id="toggle-map" class="map-toggle-btn" style="margin-top: 10px; background: #f0f5ff; border: 1px solid #d0d8ff; color: #4361ee; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 5px;">
+                        <i class="fas fa-map-marker-alt"></i> Select on Map
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">📝 Description:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>⚠️ Priority:</label>
+                    <div class="priority-buttons">
+                        <input type="radio" name="priority" id="high" value="high" required>
+                        <label for="high">🔴 High</label>
+                        
+                        <input type="radio" name="priority" id="medium" value="medium" checked>
+                        <label for="medium">🟡 Medium</label>
+                        
+                        <input type="radio" name="priority" id="low" value="low">
+                        <label for="low">🟢 Low</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="photo">📸 Upload Photo (Optional):</label>
+                    <input type="file" id="photo" name="photo" accept="image/*">
+                </div>
+
+                <div class="form-group">
+                    <label>👥 Witnesses (Optional)</label>
+                    <div class="witnesses-container">
+                        <div class="witness-card">
+                            <div class="witness-header">
+                                <span>Witness #1</span>
+                                <button type="button" class="remove-witness" onclick="removeWitness(this)" disabled>✕</button>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group half">
+                                    <input type="text" name="witness_name[]" placeholder="Full Name" class="witness-input">
+                                </div>
+                                <div class="form-group half">
+                                    <input type="tel" name="witness_phone[]" placeholder="Phone Number" class="witness-input">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <textarea name="witness_address[]" placeholder="Address (Optional)" class="witness-textarea"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="add-witness-btn" onclick="addWitness()">
+                        <i class="fas fa-plus"></i> Add Witness
+                    </button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">📤 Submit Complaint</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="events" style="display:none;">
+            <h2>Upcoming Events</h2>
+            <div class="event-list">
+                <div class="event-card">
+                    <h3>Cleanliness Drive</h3>
+                    <p class="event-date">15th August</p>
+                    <p class="event-description">Join us in making our city cleaner and greener. Together we can make a difference!</p>
+                    <button class="participate-btn">Participate Now</button>
+                </div>
+                <div class="event-card">
+                    <h3>Water Conservation Workshop</h3>
+                    <p class="event-date">20th August</p>
+                    <p class="event-description">Learn effective water conservation techniques and sustainable practices.</p>
+                    <button class="participate-btn">Participate Now</button>
+                </div>
+                <div class="event-card">
+                    <h3>Electricity Awareness Seminar</h3>
+                    <p class="event-date">25th August</p>
+                    <p class="event-description">Understanding energy efficiency and safety measures for a better tomorrow.</p>
+                    <button class="participate-btn">Participate Now</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="track" style="display:none;">
+            <div class="track-header">
+                <h2>📋 Track Your Application</h2>
+                <p class="track-subtitle">Enter your details to check the status of your complaint or service request</p>
+            </div>
+            
+            <div class="track-container">
+                <form id="track-form" class="track-form">
+                    <div class="form-group">
+                        <label for="app-id">🔑 Application ID</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="text" id="app-id" name="app-id" placeholder="Enter your application ID" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">✉️ Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="Enter your registered email" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birth-date">📅 Date of Birth</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                                <input type="date" id="birth-date" name="birth-date" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mobile">📱 Mobile Number</label>
+                            <div class="input-with-icon">
+                                <i class="fas fa-phone"></i>
+                                <input type="tel" id="mobile" name="mobile" placeholder="Enter mobile number" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="track-btn">
+                            <i class="fas fa-search"></i> Track Application
+                        </button>
+                        <button type="button" id="scan-qr" class="qr-btn" title="Scan QR Code">
+                            <i class="fas fa-qrcode"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Results Section (initially hidden) -->
+                <div id="track-results" class="track-results" style="display: none;">
+                    <div class="status-header">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3>Application Status</h3>
+                    </div>
+                    
+                    <div class="status-timeline">
+                        <div class="timeline-item active">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Submitted</h4>
+                                <p>Your application has been received</p>
+                                <span class="timeline-date">Today, 10:30 AM</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>In Review</h4>
+                                <p>Your application is being processed</p>
+                                <span class="timeline-date">Estimated: Tomorrow</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>In Progress</h4>
+                                <p>Our team is working on your request</p>
+                                <span class="timeline-date">Estimated: 2-3 business days</span>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-marker"></div>
+                            <div class="timeline-content">
+                                <h4>Resolved</h4>
+                                <p>Your issue has been addressed</p>
+                                <span class="timeline-date">Not started</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="status-actions">
+                        <button class="action-btn">
+                            <i class="fas fa-download"></i> Download Receipt
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-share-alt"></i> Share Status
+                        </button>
+                        <button class="action-btn">
+                            <i class="fas fa-print"></i> Print
+                        </button>
+                    </div>
+                    
+                    <div class="support-section">
+                        <h4>Need Help?</h4>
+                        <p>If you have any questions about your application status, please contact our support team.</p>
+                        <div class="support-contacts">
+                            <a href="tel:+911234567890"><i class="fas fa-phone"></i> +91 12345 67890</a>
+                            <a href="mailto:support@civicsahayak.com"><i class="fas fa-envelope"></i> support@civicsahayak.com</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- QR Scanner Modal -->
+                <div id="qr-scanner" class="qr-scanner" style="display: none;">
+                    <div class="qr-scanner-content">
+                        <div class="qr-scanner-header">
+                            <h3>Scan QR Code</h3>
+                            <button class="close-btn" id="close-qr">&times;</button>
+                        </div>
+                        <div class="qr-scanner-body">
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                                <p>Position the QR code within the frame to scan</p>
+                            </div>
+                            <button class="btn-flashlight" id="toggle-flash">
+                                <i class="fas fa-lightbulb"></i> Toggle Flash
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Applications (Collapsible) -->
+            <div class="recent-applications">
+                <button class="toggle-recent">
+                    <i class="fas fa-history"></i> Recent Applications
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="recent-list" style="display: none;">
+                    <div class="recent-item">
+                        <div class="recent-icon">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <div class="recent-details">
+                            <h4>Garbage Collection</h4>
+                            <p>ID: CS-2023-00123</p>
+                            <span class="status-badge in-progress">In Progress</span>
+                        </div>
+                        <button class="recent-track">Track</button>
+                    </div>
+                    <div class="recent-item">
+                        <div class="recent-icon">
+                            <i class="fas fa-traffic-light"></i>
+                        </div>
+                        <div class="recent-details">
+                            <h4>Traffic Signal Issue</h4>
+                            <p>ID: CS-2023-00098</p>
+                            <span class="status-badge resolved">Resolved</span>
+                        </div>
+                        <button class="recent-track">View</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <style>
+    /* Simplified Complaint Form Styles */
+    .complaint-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .form-group textarea:focus,
+    .form-group input:focus,
+    .form-group select:focus {
+        border-color: #4361ee;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        outline: none;
+    }
+    
+    .form-group textarea {
+        transition: all 0.3s ease;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    
+    .form-group textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    .priority-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    
+    .priority-buttons input[type="radio"] {
+        display: none;
+    }
+    
+    .priority-buttons label {
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+    
+    .priority-buttons input[type="radio"]:checked + label {
+        background: #4361ee;
+        color: white;
+        border-color: #4361ee;
+    }
+    
+    /* Witnesses Section Styles */
+    .witnesses-container {
+        margin-bottom: 15px;
+    }
+    
+    .witness-card {
+        background: #f8f9ff;
+        border: 1px solid #e0e4ff;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .witness-card:hover {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .witness-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e0e4ff;
+    }
+    
+    .witness-header span {
+        font-weight: 600;
+        color: #4361ee;
+    }
+    
+    .remove-witness {
+        background: none;
+        border: none;
+        color: #ff4d4f;
+        font-size: 16px;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: all 0.2s;
+    }
+    
+    .remove-witness:not(:disabled):hover {
+        background: #fff1f0;
+    }
+    
+    .remove-witness:disabled {
+        color: #d9d9d9;
+        cursor: not-allowed;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 12px;
+    }
+    
+    .form-group.half {
+        flex: 1;
+    }
+    
+    .witness-input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: all 0.3s;
+    }
+    
+    .witness-input:focus {
+        border-color: #4361ee;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        outline: none;
+    }
+    
+    .witness-textarea {
+        width: 100%;
+        min-height: 80px;
+        padding: 10px 12px;
+        border: 1px solid #d9d9d9;
+        border-radius: 4px;
+        font-size: 14px;
+        resize: vertical;
+        transition: all 0.3s;
+    }
+    
+    .witness-textarea:focus {
+        border-color: #4361ee;
+        box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
+        outline: none;
+    }
+    
+    .add-witness-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: #f0f5ff;
+        color: #4361ee;
+        border: 1px dashed #4361ee;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .add-witness-btn:hover {
+        background: #e6f0ff;
+        border-style: solid;
+    }
+    
+    .add-witness-btn i {
+        font-size: 12px;
+    }
+    
+    /* Location Input Styles */
+    .location-input-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    
+    #location {
+        padding-right: 40px;
+        width: 100%;
+    }
+    
+    .location-btn {
+        position: absolute;
+        right: 5px;
+        background: #f0f5ff;
+        border: 1px solid #d9e2ff;
+        border-radius: 4px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #4361ee;
+        transition: all 0.2s;
+    }
+    
+    .location-btn:hover {
+        background: #e6f0ff;
+        transform: scale(1.05);
+    }
+    
+    .location-btn:active {
+        transform: scale(0.95);
+    }
+    
+    .location-status {
+        font-size: 12px;
+        margin-top: 4px;
+        min-height: 16px;
+        color: #4361ee;
+    }
+    
+    .location-status.error {
+        color: #ff4d4f;
+    }
+    
+    .map-toggle-btn {
+        transition: all 0.2s ease;
+    }
+    
+    .map-toggle-btn:hover {
+        background: #e6f0ff !important;
+    }
+    
+    #location-map {
+        border-radius: 8px;
+    }
+    
+    .gm-style .gm-style-iw {
+        padding: 10px;
+        border-radius: 8px;
+    }
+    
+    .location-btn.loading {
+        animation: spin 1s linear infinite;
+        pointer-events: none;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    /* Police Complaint Styles */
+    .police-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 12px;
+        margin-top: 8px;
+    }
+    
+    .police-option {
+        position: relative;
+    }
+    
+    .police-radio {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .police-radio + label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 15px 10px;
+        background: #f8f9ff;
+        border: 2px solid #e0e4ff;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        height: 100%;
+    }
+    
+    .police-radio:checked + label {
+        background: #eef1ff;
+        border-color: #4361ee;
+        box-shadow: 0 2px 8px rgba(67, 97, 238, 0.15);
+    }
+    
+    .police-radio:focus + label {
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+    
+    .police-radio + label:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .police-icon {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #4361ee;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f0f4ff;
+        border-radius: 50%;
+        transition: all 0.2s;
+    }
+    
+    .police-radio:checked + label .police-icon {
+        background: #4361ee;
+        color: white;
+    }
+    
+    .police-option span {
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin-top: 4px;
+    }
+    
+    /* Track Application Styles */
+    .track-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .track-subtitle {
+        color: #666;
+        margin-top: 8px;
+        font-size: 1rem;
+    }
+    
+    .track-container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 30px;
+    }
+    
+    .track-form .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .track-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+    }
+    
+    .input-with-icon {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+    
+    .input-with-icon i {
+        position: absolute;
+        left: 15px;
+        color: #666;
+    }
+    
+    .track-form input[type="text"],
+    .track-form input[type="email"],
+    .track-form input[type="tel"],
+    .track-form input[type="date"] {
+        width: 100%;
+        padding: 12px 15px 12px 45px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        font-size: 15px;
+        transition: all 0.3s;
+    }
+    
+    .track-form input:focus {
+        border-color: #4361ee;
+        box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        outline: none;
+    }
+    
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .form-row .form-group {
+        flex: 1;
+    }
+    
+    .track-btn {
+        background: #4361ee;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+    
+    .track-btn:hover {
+        background: #3a56d4;
+        transform: translateY(-1px);
+    }
+    
+    .qr-btn {
+        background: #f0f4ff;
+        color: #4361ee;
+        border: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .qr-btn:hover {
+        background: #e6ecff;
+        transform: scale(1.05);
+    }
+    
+    /* Status Timeline */
+    .track-results {
+        margin-top: 30px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+    }
+    
+    .status-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .status-icon {
+        width: 80px;
+        height: 80px;
+        background: #e8f5e9;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 15px;
+    }
+    
+    .status-icon i {
+        font-size: 40px;
+        color: #4caf50;
+    }
+    
+    .status-timeline {
+        position: relative;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        padding-left: 30px;
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-bottom: 30px;
+        padding-left: 30px;
+        border-left: 2px solid #e0e0e0;
+    }
+    
+    .timeline-item:last-child {
+        border-left-color: transparent;
+    }
+    
+    .timeline-item.active {
+        border-left-color: #4361ee;
+    }
+    
+    .timeline-item.active .timeline-marker {
+        background: #4361ee;
+        border-color: #4361ee;
+    }
+    
+    .timeline-marker {
+        position: absolute;
+        left: -10px;
+        top: 0;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: white;
+        border: 2px solid #e0e0e0;
+        transition: all 0.3s;
+    }
+    
+    .timeline-content {
+        padding: 5px 0 0 15px;
+    }
+    
+    .timeline-content h4 {
+        margin: 0 0 5px;
+        color: #333;
+    }
+    
+    .timeline-content p {
+        margin: 0 0 5px;
+        color: #666;
+        font-size: 14px;
+    }
+    
+    .timeline-date {
+        font-size: 12px;
+        color: #999;
+    }
+    
+    /* Status Actions */
+    .status-actions {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+        flex-wrap: wrap;
+    }
+    
+    .action-btn {
+        background: #f5f5f5;
+        border: 1px solid #ddd;
+        padding: 8px 15px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .action-btn:hover {
+        background: #eee;
+        transform: translateY(-1px);
+    }
+    
+    /* Support Section */
+    .support-section {
+        background: #f9f9ff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 30px;
+        text-align: center;
+    }
+    
+    .support-section h4 {
+        margin-top: 0;
+        color: #333;
+    }
+    
+    .support-contacts {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    
+    .support-contacts a {
+        color: #4361ee;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .support-contacts a:hover {
+        text-decoration: underline;
+    }
+    
+    /* QR Scanner */
+    .qr-scanner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+    
+    .qr-scanner-content {
+        background: white;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        overflow: hidden;
+    }
+    
+    .qr-scanner-header {
+        padding: 15px 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .close-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+    }
+    
+    .qr-scanner-body {
+        padding: 30px;
+        text-align: center;
+    }
+    
+    .qr-placeholder {
+        background: #f5f5f5;
+        border: 2px dashed #ddd;
+        border-radius: 8px;
+        padding: 40px 20px;
+        margin-bottom: 20px;
+    }
+    
+    .qr-placeholder i {
+        font-size: 50px;
+        color: #999;
+        margin-bottom: 15px;
+    }
+    
+    .btn-flashlight {
+        background: #f0f4ff;
+        border: 1px solid #d0d8ff;
+        color: #4361ee;
+        padding: 8px 15px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto;
+        cursor: pointer;
+    }
+    
+    /* Recent Applications */
+    .recent-applications {
+        max-width: 800px;
+        margin: 30px auto 0;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+    
+    .toggle-recent {
+        width: 100%;
+        padding: 15px 20px;
+        background: #f9f9ff;
+        border: none;
+        text-align: left;
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .recent-list {
+        padding: 0 20px 20px;
+    }
+    
+    .recent-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .recent-item:last-child {
+        border-bottom: none;
+    }
+    
+    .recent-icon {
+        width: 40px;
+        height: 40px;
+        background: #f0f4ff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        color: #4361ee;
+    }
+    
+    .recent-details {
+        flex: 1;
+    }
+    
+    .recent-details h4 {
+        margin: 0 0 5px;
+        font-size: 15px;
+    }
+    
+    .recent-details p {
+        margin: 0;
+        font-size: 13px;
+        color: #666;
+    }
+    
+    .status-badge {
+        display: inline-block;
+        padding: 3px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        font-weight: 500;
+        margin-top: 5px;
+    }
+    
+    .status-badge.in-progress {
+        background: #e3f2fd;
+        color: #1976d2;
+    }
+    
+    .status-badge.resolved {
+        background: #e8f5e9;
+        color: #2e7d32;
+    }
+    
+    .recent-track {
+        background: #f0f4ff;
+        border: 1px solid #d0d8ff;
+        color: #4361ee;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    
+    .recent-track:hover {
+        background: #e6ecff;
+    }
+    
+    .form-actions {
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    .submit-btn {
+        padding: 10px 24px;
+        background: #4361ee;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0 auto;
+    }
+    
+    .submit-btn:hover {
+        background: #3a56d4;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .submit-btn:hover {
+        background: #3a56d4;
+    }
+    </style>
+    
+    <script>
+    // Show/hide sections based on button clicks
+    document.getElementById('show-home').onclick = function(e) {
+        e.preventDefault();
+        document.getElementById('info').style.display = 'block';
+        document.getElementById('complaints').style.display = 'none';
+        document.getElementById('events').style.display = 'none';
+        document.getElementById('track').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    
+    document.getElementById('show-complaints').onclick = function() {
+        document.getElementById('complaints').style.display = 'block';
+        document.getElementById('events').style.display = 'none';
+        document.getElementById('track').style.display = 'none';
+        document.getElementById('info').style.display = 'none';
+        window.scrollTo({ top: document.getElementById('complaints').offsetTop - 40, behavior: 'smooth' });
+    };
+    document.getElementById('show-events').onclick = function() {
+        document.getElementById('complaints').style.display = 'none';
+        document.getElementById('events').style.display = 'block';
+        document.getElementById('track').style.display = 'none';
+        document.getElementById('info').style.display = 'none';
+        window.scrollTo({ top: document.getElementById('events').offsetTop - 40, behavior: 'smooth' });
+    };
+    document.getElementById('show-track').onclick = function() {
+        document.getElementById('complaints').style.display = 'none';
+        document.getElementById('events').style.display = 'none';
+        document.getElementById('track').style.display = 'block';
+        document.getElementById('info').style.display = 'none';
+        window.scrollTo({ top: document.getElementById('track').offsetTop - 40, behavior: 'smooth' });
+    };
+    </script>
+    
+    <script>
+    // Toggle police subcategories
+    const complaintType = document.getElementById('complaint-type');
+    const policeSubcategories = document.getElementById('policeSubcategories');
+    
+    function togglePoliceSubcategories() {
+        if (complaintType.value === 'police') {
+            policeSubcategories.style.display = 'block';
+            // Add required attribute to all police type inputs
+            document.querySelectorAll('.police-radio').forEach(radio => {
+                radio.required = true;
+            });
+        } else {
+            policeSubcategories.style.display = 'none';
+            // Remove required attribute when not a police complaint
+            document.querySelectorAll('.police-radio').forEach(radio => {
+                radio.required = false;
+            });
+        }
+    }
+    
+    // Initial check on page load
+    if (complaintType) {
+        togglePoliceSubcategories();
+        complaintType.addEventListener('change', togglePoliceSubcategories);
+    }
+    
+    // Toggle recent applications
+    const toggleRecent = document.querySelector('.toggle-recent');
+    const recentList = document.querySelector('.recent-list');
+    
+    if (toggleRecent && recentList) {
+        toggleRecent.addEventListener('click', () => {
+            const isHidden = recentList.style.display === 'none';
+            recentList.style.display = isHidden ? 'block' : 'none';
+            const icon = toggleRecent.querySelector('.fa-chevron-down');
+            if (icon) {
+                icon.className = isHidden ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+            }
+        });
+    }
+    
+    // QR Scanner Toggle
+    const scanQrBtn = document.getElementById('scan-qr');
+    const qrScanner = document.getElementById('qr-scanner');
+    const closeQr = document.getElementById('close-qr');
+    const toggleFlash = document.getElementById('toggle-flash');
+    
+    if (scanQrBtn && qrScanner) {
+        scanQrBtn.addEventListener('click', () => {
+            qrScanner.style.display = 'flex';
+            // In a real app, you would initialize the QR scanner here
+        });
+        
+        closeQr.addEventListener('click', () => {
+            qrScanner.style.display = 'none';
+            // Stop camera when closing
+        });
+        
+        toggleFlash.addEventListener('click', () => {
+            // Toggle flashlight functionality would go here
+            toggleFlash.classList.toggle('active');
+        });
+    }
+    
+    // Form submission for tracking
+    const trackForm = document.getElementById('track-form');
+    const trackResults = document.getElementById('track-results');
+    
+    if (trackForm && trackResults) {
+        trackForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // In a real app, you would validate the form and fetch the status
+            trackResults.style.display = 'block';
+            trackForm.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+    
+    // Form submission for complaints
+    const complaintForm = document.getElementById('complaintForm');
+    
+    // Location handling
+    const locationInput = document.getElementById('location');
+    const getLocationBtn = document.getElementById('get-location');
+    const locationStatus = document.getElementById('location-status');
+    const mapContainer = document.getElementById('location-map-container');
+    const toggleMapBtn = document.getElementById('toggle-map');
+    let map, marker, clickListener;
+    
+    // Toggle map visibility
+    if (toggleMapBtn) {
+        toggleMapBtn.addEventListener('click', () => {
+            const isVisible = mapContainer.style.display === 'block';
+            mapContainer.style.display = isVisible ? 'none' : 'block';
+            toggleMapBtn.innerHTML = isVisible 
+                ? '<i class="fas fa-map-marker-alt"></i> Select on Map' 
+                : '<i class="fas fa-times"></i> Close Map';
+                
+            if (!isVisible && !map) {
+                initMap();
+            }
+        });
+    }
+    
+    // Initialize the map
+    function initMap() {
+        // Default to a central location if no location is set
+        const defaultLocation = [12.9716, 77.5946]; // Bangalore coordinates
+        
+        // Create map
+        map = L.map('location-map').setView(defaultLocation, 12);
+        
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Add click listener to the map
+        map.on('click', (e) => {
+            const { lat, lng } = e.latlng;
+            
+            // Add or update marker
+            if (marker) {
+                marker.setLatLng([lat, lng]);
+            } else {
+                marker = L.marker([lat, lng], {
+                    draggable: true
+                }).addTo(map);
+                
+                // Update location when marker is dragged
+                marker.on('dragend', (e) => {
+                    const position = marker.getLatLng();
+                    updateLocationFromLatLng(position.lat, position.lng);
+                });
+            }
+            
+            // Update the location input
+            updateLocationFromLatLng(lat, lng);
+        });
+    }
+    
+    // Update location input from coordinates
+    function updateLocationFromLatLng(lat, lng) {
+        // Use OpenStreetMap Nominatim for reverse geocoding
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.display_name) {
+                    locationInput.value = data.display_name;
+                    showLocationStatus('Location selected on map');
+                } else {
+                    throw new Error('No address found');
+                }
+            })
+            .catch(error => {
+                // Fallback to coordinates if address lookup fails
+                locationInput.value = `${parseFloat(lat).toFixed(6)}, ${parseFloat(lng).toFixed(6)}`;
+                showLocationStatus('Using coordinates (address lookup failed)');
+            });
+    }
+    
+    if (getLocationBtn) {
+        getLocationBtn.addEventListener('click', () => {
+            if (!navigator.geolocation) {
+                showLocationStatus('Geolocation is not supported by your browser', true);
+                return;
+            }
+            
+            // Show loading state
+            getLocationBtn.classList.add('loading');
+            locationStatus.textContent = 'Detecting your location...';
+            locationStatus.className = 'location-status';
+            
+            // Request location
+            navigator.geolocation.getCurrentPosition(
+                // Success callback
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    
+                    // Use OpenStreetMap Nominatim for reverse geocoding
+                    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Format the address
+                            const address = data.display_name || `${data.address?.road || ''} ${data.address?.house_number || ''}, ${data.address?.city || data.address?.town || data.address?.village || ''}`.trim();
+                            if (address) {
+                                locationInput.value = address;
+                                showLocationStatus('Location detected successfully!');
+                            } else {
+                                // Fallback to coordinates if address can't be determined
+                                locationInput.value = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+                                showLocationStatus('Approximate location detected (coordinates only)');
+                            }
+                            getLocationBtn.classList.remove('loading');
+                        })
+                        .catch(error => {
+                            console.error('Geocoding error:', error);
+                            // Fallback to just showing coordinates
+                            locationInput.value = `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`;
+                            showLocationStatus('Approximate location detected (coordinates only)');
+                            getLocationBtn.classList.remove('loading');
+                        });
+                },
+                // Error callback
+                (error) => {
+                    let errorMessage = 'Unable to retrieve your location';
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = 'Location access was denied. Please enable location services.';
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = 'Location information is unavailable.';
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = 'The request to get your location timed out.';
+                            break;
+                    }
+                    showLocationStatus(errorMessage, true);
+                    getLocationBtn.classList.remove('loading');
+                },
+                // Options
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000, // 10 seconds
+                    maximumAge: 0 // Force fresh location
+                }
+            );
+        });
+    }
+    
+    function showLocationStatus(message, isError = false) {
+        locationStatus.textContent = message;
+        locationStatus.className = 'location-status' + (isError ? ' error' : '');
+        
+        // Auto-hide success messages after 5 seconds
+        if (!isError) {
+            setTimeout(() => {
+                if (locationStatus.textContent === message) {
+                    locationStatus.textContent = '';
+                }
+            }, 5000);
+        }
+    }
+    
+    // Add new witness field
+    function addWitness() {
+        const container = document.querySelector('.witnesses-container');
+        const witnessCount = container.children.length + 1;
+        
+        const witnessCard = document.createElement('div');
+        witnessCard.className = 'witness-card';
+        witnessCard.innerHTML = `
+            <div class="witness-header">
+                <span>Witness #${witnessCount}</span>
+                <button type="button" class="remove-witness" onclick="removeWitness(this)">✕</button>
+            </div>
+            <div class="form-row">
+                <div class="form-group half">
+                    <input type="text" name="witness_name[]" placeholder="Full Name" class="witness-input">
+                </div>
+                <div class="form-group half">
+                    <input type="tel" name="witness_phone[]" placeholder="Phone Number" class="witness-input">
+                </div>
+            </div>
+            <div class="form-group">
+                <textarea name="witness_address[]" placeholder="Address (Optional)" class="witness-textarea"></textarea>
+            </div>
+        `;
+        
+        container.appendChild(witnessCard);
+        
+        // Enable remove button for the first witness if this is the second one
+        if (witnessCount === 2) {
+            const firstRemoveBtn = container.firstElementChild.querySelector('.remove-witness');
+            if (firstRemoveBtn) firstRemoveBtn.disabled = false;
+        }
+        
+        // Scroll to the new witness card
+        witnessCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    // Remove witness field
+    function removeWitness(button) {
+        const container = document.querySelector('.witnesses-container');
+        const witnessCards = container.children;
+        
+        // Don't remove if it's the last witness
+        if (witnessCards.length <= 1) return;
+        
+        // Remove the witness card
+        const witnessCard = button.closest('.witness-card');
+        witnessCard.style.opacity = '0';
+        witnessCard.style.transform = 'translateX(-20px)';
+        
+        setTimeout(() => {
+            witnessCard.remove();
+            
+            // Update witness numbers
+            Array.from(witnessCards).forEach((card, index) => {
+                const header = card.querySelector('.witness-header span');
+                if (header) header.textContent = `Witness #${index + 1}`;
+            });
+            
+            // Disable remove button if only one witness remains
+            if (witnessCards.length === 1) {
+                const firstRemoveBtn = container.firstElementChild.querySelector('.remove-witness');
+                if (firstRemoveBtn) firstRemoveBtn.disabled = true;
+            }
+        }, 200);
+    }
+    
+    if (complaintForm) {
+        complaintForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real app, you would submit the form data to your server here
+            console.log('Form submitted:', new FormData(complaintForm));
+            
+            // Show success message
+            alert('Your complaint has been submitted successfully!');
+            
+            // Reset form
+            this.reset();
+        });
+    }
+    </script>
+
+    <footer>
+        <p>&copy; 2025 Civic Sahayak. All rights reserved.</p>
+    </footer>
+</body>
+</html>

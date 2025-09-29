@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civic Sahayak - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --success: #4caf50;
+            --error: #f44336;
+            --text-color: #2b2d42;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .signup-container {
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        .signup-header {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .signup-header h1 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signup-header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .signup-form {
+            padding: 30px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .password-strength {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .strength-meter {
+            height: 100%;
+            width: 0;
+            background: var(--error);
+            transition: var(--transition);
+        }
+
+        .password-requirements {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .requirement i {
+            margin-right: 5px;
+            font-size: 0.7rem;
+            width: 16px;
+            text-align: center;
+        }
+
+        .requirement.valid {
+            color: var(--success);
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #6c757d;
+        }
+
+        .login-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                margin: 0 15px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Account</h1>
+            <p>Join Civic Sahayak today</p>
+        </div>
+        
+        <form class="signup-form" id="signupForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="form-control" placeholder="John" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" placeholder="Doe" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" class="form-control" placeholder="johndoe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" class="form-control" placeholder="+1 (555) 123-4567" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Create a strong password" required>
+                <div class="password-strength">
+                    <div class="strength-meter" id="strengthMeter"></div>
+                </div>
+                <div class="password-requirements">
+                    <div class="requirement" id="lengthReq">
+                        <i>•</i> At least 8 characters
+                    </div>
+                    <div class="requirement" id="uppercaseReq">
+                        <i>•</i> At least one uppercase letter
+                    </div>
+                    <div class="requirement" id="numberReq">
+                        <i>•</i> At least one number
+                    </div>
+                    <div class="requirement" id="specialReq">
+                        <i>•</i> At least one special character
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                <div id="passwordMatch" style="color: var(--error); font-size: 0.8rem; margin-top: 5px; display: none;">
+                    Passwords do not match
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Create Account</button>
+
+            <div class="login-link">
+                Already have an account? <a href="login.html">Sign In</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Password strength checker
+        const passwordInput = document.getElementById('password');
+        const strengthMeter = document.getElementById('strengthMeter');
+        const requirements = {
+            length: document.getElementById('lengthReq'),
+            uppercase: document.getElementById('uppercaseReq'),
+            number: document.getElementById('numberReq'),
+            special: document.getElementById('specialReq')
+        };
+
+        passwordInput.addEventListener('input', function() {
+            const password = this.value;
+            let strength = 0;
+            let messages = [];
+
+            // Check password strength
+            if (password.length >= 8) {
+                strength += 25;
+                requirements.length.classList.add('valid');
+                requirements.length.innerHTML = '<i>✓</i> At least 8 characters';
+            } else {
+                requirements.length.classList.remove('valid');
+                requirements.length.innerHTML = '<i>•</i> At least 8 characters';
+            }
+
+            if (/[A-Z]/.test(password)) {
+                strength += 25;
+                requirements.uppercase.classList.add('valid');
+                requirements.uppercase.innerHTML = '<i>✓</i> At least one uppercase letter';
+            } else {
+                requirements.uppercase.classList.remove('valid');
+                requirements.uppercase.innerHTML = '<i>•</i> At least one uppercase letter';
+            }
+
+            if (/\d/.test(password)) {
+                strength += 25;
+                requirements.number.classList.add('valid');
+                requirements.number.innerHTML = '<i>✓</i> At least one number';
+            } else {
+                requirements.number.classList.remove('valid');
+                requirements.number.innerHTML = '<i>•</i> At least one number';
+            }
+
+            if (/[^A-Za-z0-9]/.test(password)) {
+                strength += 25;
+                requirements.special.classList.add('valid');
+                requirements.special.innerHTML = '<i>✓</i> At least one special character';
+            } else {
+                requirements.special.classList.remove('valid');
+                requirements.special.innerHTML = '<i>•</i> At least one special character';
+            }
+
+            // Update strength meter
+            strengthMeter.style.width = `${strength}%`;
+            if (strength < 50) {
+                strengthMeter.style.background = 'var(--error)';
+            } else if (strength < 75) {
+                strengthMeter.style.background = '#ff9800';
+            } else {
+                strengthMeter.style.background = 'var(--success)';
+            }
+        });
+
+        // Confirm password validation
+        const confirmPassword = document.getElementById('confirmPassword');
+        const passwordMatch = document.getElementById('passwordMatch');
+
+        confirmPassword.addEventListener('input', function() {
+            if (this.value !== passwordInput.value) {
+                passwordMatch.style.display = 'block';
+                this.setCustomValidity("Passwords do not match");
+            } else {
+                passwordMatch.style.display = 'none';
+                this.setCustomValidity('');
+            }
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (passwordInput.value !== confirmPassword.value) {
+                passwordMatch.style.display = 'block';
+                return;
+            }
+            
+            // Form is valid, proceed with submission
+            alert('Account created successfully!');
+            // Uncomment the line below to submit the form
+            // this.submit();
+        });
+
+        // Phone number formatting
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        });
+    </script>
+</body>
+</html>
